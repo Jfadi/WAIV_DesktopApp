@@ -1,38 +1,101 @@
+
+body {
+  background-color: #0084b8; /* replace with your desired color */
+}
+
 .App {
   text-align: center;
+  background-color: #0084b8 ;
+  color: #0084b8;
+  min-width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.cover {
+  background-color: #0084b8 ;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header {
+  color: black;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.createNote {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   align-items: center;
+}
+
+.note_setup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.datepick {
+  transition: all 100ms;
+    background-color: hsl(0, 0%, 100%);
+    border-color: hsl(0, 0%, 80%);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 8px;
+    box-sizing: border-box;
+}
+
+.note {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: row;
+  align-items: center;
+}
+
+.button {
+  cursor: pointer;
+  transition-duration: 0.1s;
+  padding: 0.5rem 1rem;
+  margin: 1.5rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.button:hover {
+  background-color: #4CAF50; /* Green */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+  font-size: 15px;
+}
+
+th {
+  background-color: rgb(117, 201, 250);
+}
+
+td {
+  background-color: rgb(205, 235, 253);
+}
+
+.deletebtn{
+  
 }
