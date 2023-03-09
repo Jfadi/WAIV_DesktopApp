@@ -6,16 +6,26 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "electron-store": "^8.1.0",
+    "fs": "^0.0.1-security",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "^6.8.2",
+    "react-scripts": "^5.0.1",
+    "react-select": "^5.7.0",
+    "react-uuid": "^2.0.0",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4"
   },
+  "main": "public/electron.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron ."
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +44,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "electron": "^23.1.1",
+    "electron-is-dev": "^2.0.0",
+    "wait-on": "^7.0.1"
   }
 }
