@@ -1,5 +1,7 @@
 const electron = require('electron');
-
+const ipcMain = require('electron').ipcMain;
+const Store = require('electron-store');
+const storage = new Store();
 
   
 // Module to control application life.
@@ -18,7 +20,10 @@ function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({width: 800, height: 600,      
         webPreferences: {
-        devTools: false,
+            nodeIntegration: true,
+            contextIsolation: false,
+            devTools: true,
+            // preload: path.join(__dirname,"./preload.js")
         }});
     
     // and load the index.html of the app.
@@ -60,3 +65,24 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.on("set", (event, value) =>{
+    console.log("eeeehaaaaaaaa")
+
+    value.forEach(element => {
+        console.log(element.id)
+        let storeLevel = 'notes.' + element.id
+        storage.set(storeLevel, element)
+    });
+    console.log(app.getPath('userData'))
+})
+
+ipcMain.on("get", (event, value) =>{
+    console.log(storage.get('notes'))
+    event.sender.send('recieveData', storage.get(value));
+})
+
+ipcMain.on("delete", (event, id) =>{
+    console.log(id)
+    let storeLevel = 'notes.' + id
+    storage.delete(storeLevel)
+})
