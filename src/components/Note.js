@@ -1,88 +1,14 @@
 import React, { useState } from 'react'
 import CreatableSelect from 'react-select/creatable';
 import NotesList from './NotesList';
-import uuid from 'react-uuid';
-
-// const Store = require('electron-store');
-// const storage = new Store();
-
-const serviceTypeList = [
-    { value: 'employment Preparation', label: 'Employment Preparation' },
-    { value: 'job development, placement, and retention', label: 'Job development, placement, and retention' },
-    { value: 'communication information', label: 'Communication information' },
-    { value: 'dOR Application', label: 'DOR Application' },
-    { value: 'monthly Report of Progress', label: 'Monthly Report of Progress' }
-];
-const CMSList = [
-    { value: '2232', label: '2232' },
-    { value: '2233', label: '2233' },
-    { value: '2234', label: '2234' }
-];
-const term = [
-    { value: 'Spring 2023', label: 'Spring 2023' },
-    { value: 'Summer 2023', label: 'Summer 2023' },
-    { value: 'Fall 2023', label: 'Fall 2023' }
-];
-const beneficiariesList = [
-    { value: 'Student', label: 'Student' },
-    { value: 'WAIV Student Assistant', label: 'WAIV Student Assistant' },
-    { value: 'DOR-QRP, Counselor', label: 'DOR-QRP, Counselor' },
-    { value: 'WAIV Employment Services Specialist, Robert Wendt', label: 'WAIV Employment Services Specialist, Robert Wendt' },
-    { value: 'WAIV Employment Services Specialist, Rosa Trujillo', label: 'WAIV Employment Services Specialist, Rosa Trujillo' },
-    { value: 'WAIV Employment Services Specialist, Angi Carrillo-Humphreys', label: 'WAIV Employment Services Specialist, Angi Carrillo-Humphreys' },
-    { value: 'WAIV Employment Services Specialist, Mathew Gonzales', label: 'WAIV Employment Services Specialist, Mathew Gonzales' },
-    { value: 'WAIV Employment Support Services Coordinator, Shauna Hagemann', label: 'WAIV Employment Support Services Coordinator, Shauna Hagemann' },
-    { value: 'WAIV Program Case Manager, Karen Kinsley', label: 'WAIV Program Case Manager, Karen Kinsley' },
-    { value: 'WAIV Program Case Manager, Domonique Rood', label: 'WAIV Program Case Manager, Domonique Rood' },
-    { value: 'WAIV Accommodation & Retention Counselor, Jericho Padilla', label: 'WAIV Accommodation & Retention Counselor, Jericho Padilla' },
-    { value: 'WAIV Accommodations & Retention Counselor, Jen Schwartz', label: 'WAIV Accommodations & Retention Counselor, Jen Schwartz' },
-];
-const contactType = [
-    { value: 'Email', label: 'Email' },
-    { value: 'Virtual Meeting', label: 'Virtual Meeting' },
-    { value: 'Mail', label: 'Mail' },
-    { value: 'Phone (spoke to)', label: 'Phone (spoke to)' },
-    { value: 'Phone (left message)', label: 'Phone (left message)' },
-    { value: 'In-person meeting', label: 'In-person meeting' }
-];
-const contactBy = [
-    { value: 'Nikkia Pannell, WA IV Staff', label: 'Nikkia Pannell, WA IV Staff' },
-    { value: 'the student', label: 'the student' },
-    { value: 'WAIV Student Assistant', label: 'WAIV Student Assistant' },
-    { value: 'Robert Wendt, WAIV Employment Services Specialist', label: 'Robert Wendt, WAIV Employment Services Specialist' },
-    { value: 'Rosa Trujillo, WAIV Employment Services Specialist', label: 'Rosa Trujillo, WAIV Employment Services Specialist' },
-    { value: 'Angi Carrillo-Humphreys, WAIV Employment Services Specialist', label: 'Angi Carrillo-Humphreys, WAIV Employment Services Specialist' },
-    { value: 'Mathew Gonzales, WAIV Employment Services Specialist', label: 'Mathew Gonzales, WAIV Employment Services Specialist' },
-    { value: 'Natalie Smerkanich, WAIV Employer/Job Developer', label: 'Natalie Smerkanich, WAIV Employer/Job Developer' },
-    { value: 'Gabriel Wilson, WAIV Program Assistant', label: 'Gabriel Wilson, WAIV Program Assistant' },
-    { value: 'Domonique Rood, WAIV Program Case Manager', label: 'Domonique Rood, WAIV Program Case Manager' },
-    { value: 'Jericho Padilla, WAIV Accommodation & Retention Counselor', label: 'Jericho Padilla, WAIV Accommodation & Retention Counselor' },
-    { value: 'Jen Schwartz, WAIV Accommodations & Retention Counselor', label: 'Jen Schwartz, WAIV Accommodations & Retention Counselor' },
-    { value: 'Jessica Wood, Support Services Coordinator', label: 'Jessica Wood, Support Services Coordinator' },
-    { value: 'Mary Nguyen, WAIV Support Services Director', label: 'Mary Nguyen, WAIV Support Services Director' }
-];
-
-const regardsTo = [
-    { value: 'Case Review Meeting', label: 'Case Review Meeting' },
-    { value: 'QRP case staffing', label: 'QRP case staffing' },
-    { value: 'intake and orientation to WAIV Program', label: 'intake and orientation to WAIV Program' },
-    { value: 'internship search strategies', label: 'internship search strategies' },
-    { value: 'employment search strategies', label: 'employment search strategies' },
-    { value: 'job leads', label: 'job leads' },
-    { value: 'resume development', label: 'resume development' },
-    { value: 'resume review', label: 'resume review' },
-    { value: 'job application process', label: 'job application process' },
-    { value: 'interview skills and preparation', label: 'interview skills and preparation' },
-    { value: 'referral to CDC WAIV staff', label: 'referral to CDC WAIV staff' },
-    { value: 'referral to BMAC WAIV staff', label: 'referral to BMAC WAIV staff' },
-    { value: 'Event Notification', label: 'Event Notification' },
-    { value: 'Internship or Employment Documentation', label: 'Internship or Employment Documentation' },
-    { value: 'workplace accommodations and disability management', label: 'workplace accommodations and disability management' },
-    { value: 'DOR closed letter', label: 'DOR closed letter' },
-    { value: 'Participant\'s Progress Towards IPE Goal/ Contract Services', label: 'Participant\'s Progress Towards IPE Goal/ Contract Services' },
-];
+import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
+// import {exportToExcel} from '../createExcel'
+import { serviceTypeList, CMSList, term, beneficiariesList, contactType, contactBy, regardsTo } from '../staticData'
+const ipcRenderer = window.require("electron").ipcRenderer;
 
 const Note = () => {
+    const [cmsFlag, setcmsFlag] = useState(false)
     const [dataTable, setDataTable] = useState([])
     const [serviceType, setServiceType] = useState('')
     const [cms, setCMS] = useState('')
@@ -95,15 +21,28 @@ const Note = () => {
     const [note, setNote] = useState('')
     const [studentId, setStudentID] = useState('')
 
+    ipcRenderer.on('recieveData', (event, data) => {
+        // 'Data from main process!'
+        let temp = []
+        Object.keys(data).forEach(element => {
+            temp.push(data[element]);
+        });
+        setDataTable([...dataTable, ...temp])
+    });
+
+    // useEffect(() => {
+    //     ipcRenderer.send("test",dataTable)
+    // }
+    //   , [dataTable]);
+    useEffect(() => {
+        ipcRenderer.send("get", "notes")
+    }, []);
+
     const handleDelete = (id) => {
         console.log('deleted id ' + id )
         setDataTable(dataTable.filter(data => data.id !== id))
+        ipcRenderer.send("delete",id)
     }
-
-    // const handleSave = (id) => {
-    //     console.log('saved id ' + id)
-    //     storage.set('myId' , id)
-    // }
 
     const handlechange = (field, e) => {
         switch (field) {
@@ -124,6 +63,16 @@ const Note = () => {
             case 'term':
                 if (e) {
                     setCampusTerm(e.value);
+                    if (e.value === "Spring 2023"){
+                        setCMS("2232")
+                    } else if (e.value === "Summer 2023"){
+                        setCMS("2233")
+                    } else if (e.value === "Fall 2023"){
+                        setCMS("2234")
+                    } else if (!(e.value ==="")) {
+                        setcmsFlag(true)
+                        setCMS("")
+                    }
                 } else {
                     setCampusTerm('');
                 }
@@ -165,10 +114,13 @@ const Note = () => {
         //     alert('All fields are required.')
         //     return;
         // }
+
+        
         const caseNote = {
-            id: uuid(),
+            id: uuidv4(),
             Date: date,
             Campus_term: campusTerm,
+            cms: cms,
             Who_was_contacted: beneficiarie,
             By_who: contacter,
             In_regards_to: inRegardsTo,
@@ -178,10 +130,14 @@ const Note = () => {
             student: studentId
         }
         setDataTable([...dataTable, caseNote])
-        console.log(studentId)
-        console.log(dataTable)
     }
 
+    const saveNotes = (dataTable) => {
+        ipcRenderer.send("set", dataTable)
+    }
+    // const exportExcel = (dataTable) => {
+    //     exportToExcel(dataTable)
+    // }
   return (
     <div >
         <div style={{color : "black", backgroundColor : "#1d8fbc"}}>
@@ -203,14 +159,6 @@ const Note = () => {
                         options={serviceTypeList}
                         isClearable 
                     ></CreatableSelect>
-                    <label>CMSTerm:</label>
-                    <CreatableSelect
-                        onChange={(e) => {
-                        handlechange('CMS',e)}}
-                        options={CMSList}
-                        isClearable
-                    >
-                    </CreatableSelect>
                     <label>Campus Term:</label>
                     <CreatableSelect
                         onChange={(e) => {
@@ -219,6 +167,16 @@ const Note = () => {
                         isClearable
                     >
                     </CreatableSelect>
+                    { cmsFlag ? (<label>CMSTerm:</label>) : null}
+                    { cmsFlag ? (                    
+                        <CreatableSelect
+                            onChange={(e) => {
+                            handlechange('CMS',e)}}
+                            options={CMSList}
+                            isClearable
+                        >
+                        </CreatableSelect>) 
+                    : null}
                 </div>
                 <div className='createNote'>
                     <p>On </p>
@@ -273,8 +231,11 @@ const Note = () => {
                 ></textarea>
                 </div>
             </form>
-            <button className='button' onClick={()=>addNote(serviceType, cms, campusTerm, date, beneficiarie, contact ,contacter, inRegardsTo, note, studentId)}>Add Note</button>
-            {/* <button className='button' onClick={()=>handleSave(dataTable[1].id)}>Add Note</button>            */}
+            <div>
+                <button className='button' onClick={()=>saveNotes(dataTable)}>Save</button>
+                <button className='button' onClick={()=>addNote(serviceType, cms, campusTerm, date, beneficiarie, contact ,contacter, inRegardsTo, note, studentId)}>Add Note</button>
+                {/* <button className='button' onClick={()=>exportExcel(dataTable)}>Export</button> */}
+            </div>
         </div>
         <div style={{color : "black"}}>
             <NotesList list={dataTable} setDataTable={setDataTable} onDelete={handleDelete}/>

@@ -17,7 +17,7 @@ const NotesList = ({list, setDataTable, onDelete}) => {
         </thead>
         <tbody>
           {list.map( (n,i) => (
-            <tr>
+            <tr key={n.id}>
                 <td>{i + 1}</td>
                 <td>{n.student}</td>
                 <td>{n.Date}</td>
