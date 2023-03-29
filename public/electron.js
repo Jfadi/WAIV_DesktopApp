@@ -1,4 +1,5 @@
 const electron = require('electron');
+const { dialog } = require('electron')
 const ipcMain = require('electron').ipcMain;
 const Store = require('electron-store');
 const storage = new Store();
@@ -66,10 +67,8 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on("set", (event, value) =>{
-    console.log("eeeehaaaaaaaa")
-
     value.forEach(element => {
-        console.log(element.id)
+        console.log(app.getPath('userData'))
         let storeLevel = 'notes.' + element.id
         storage.set(storeLevel, element)
     });
@@ -85,4 +84,12 @@ ipcMain.on("delete", (event, id) =>{
     console.log(id)
     let storeLevel = 'notes.' + id
     storage.delete(storeLevel)
+})
+
+ipcMain.on("clear", (event) =>{
+    storage.clear()
+})
+
+ipcMain.on("alert", (event) =>{
+    dialog.showErrorBox('Input Error', 'All fields are required.') 
 })

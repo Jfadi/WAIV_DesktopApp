@@ -110,10 +110,12 @@ const Note = () => {
         }
     }
     const addNote = (serviceType, cms, campusTerm, date, beneficiarie, contact ,contacter, inRegardsTo, note, studentId) => {
-        // if (!serviceType || !cms ||  !campusTerm ||  !date ||  !beneficiarie ||  !contact  || !contacter ||  !inRegardsTo ||  !note){
-        //     alert('All fields are required.')
-        //     return;
-        // }
+        if (!serviceType || !cms ||  !campusTerm ||  !date ||  !beneficiarie ||  !contact  || !contacter ||  !inRegardsTo ||  !note){
+            // alert('All fields are required.')
+            ipcRenderer.send("alert")
+
+            return;
+        }
 
         
         const caseNote = {
@@ -135,9 +137,11 @@ const Note = () => {
     const saveNotes = (dataTable) => {
         ipcRenderer.send("set", dataTable)
     }
-    // const exportExcel = (dataTable) => {
-    //     exportToExcel(dataTable)
-    // }
+    const clearNotes = () => {
+        ipcRenderer.send("clear")
+        setDataTable([])
+    }
+    
   return (
     <div >
         <div style={{color : "black", backgroundColor : "#1d8fbc"}}>
@@ -231,9 +235,11 @@ const Note = () => {
                 ></textarea>
                 </div>
             </form>
-            <div>
+            <div className='btns'>
                 <button className='button' onClick={()=>saveNotes(dataTable)}>Save</button>
                 <button className='button' onClick={()=>addNote(serviceType, cms, campusTerm, date, beneficiarie, contact ,contacter, inRegardsTo, note, studentId)}>Add Note</button>
+                <button className='delete_btn' onClick={()=>clearNotes()}>Delete All Notes</button>
+
                 {/* <button className='button' onClick={()=>exportExcel(dataTable)}>Export</button> */}
             </div>
         </div>
