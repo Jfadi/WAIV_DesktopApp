@@ -24,10 +24,15 @@ const Note = () => {
     ipcRenderer.on('recieveData', (event, data) => {
         // 'Data from main process!'
         let temp = []
-        Object.keys(data).forEach(element => {
-            temp.push(data[element]);
-        });
-        setDataTable([...dataTable, ...temp])
+        if ( (data === null) || (data === undefined)) {
+            // Do nothing
+        } else {
+            Object.keys(data).forEach(element => {
+                temp.push(data[element]);
+            });
+            setDataTable([...dataTable, ...temp])
+        }
+
     });
 
     // useEffect(() => {

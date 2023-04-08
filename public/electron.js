@@ -3,6 +3,7 @@ const { dialog } = require('electron')
 const ipcMain = require('electron').ipcMain;
 const Store = require('electron-store');
 const storage = new Store();
+const isDev = require('electron-is-dev')
 
   
 // Module to control application life.
@@ -28,10 +29,12 @@ function createWindow() {
         }});
     
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.loadURL( isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    if (isDev) {
+        mainWindow.webContents.openDevTools();
+    }
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
