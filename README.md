@@ -1,8 +1,26 @@
-# Getting Started with Create React App
+# WAIV Desktop Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+The WAIV (Workability IV) Desktop Application is a project developed for the Career Development Center at California State University, Long Beach. It is designed to streamline the process of recording student case notes, tracking services provided, and generating comprehensive reports for administrative use.
+
+## Features
+
+- **Case Note Recording**: Enables advisors to efficiently record detailed case notes for each student interaction.
+- **Service Tracking**: Tracks various services provided to students, ensuring accurate and up-to-date record-keeping.
+- **CSV Report Generation**: Simplifies the process of report creation by allowing advisors to generate CSV reports directly from the application.
+- **Database Integration**: Seamlessly uploads generated reports to the school's central database, enhancing data consistency and reliability.
+
+## Technologies Used
+
+- **React**: For building a dynamic and responsive user interface.
+- **Electron**: To create a robust cross-platform desktop application.
+
+## Background
+
+Prior to the development of the WAIV Desktop Application, the process of managing student case notes and services was cumbersome and prone to errors. Advisors had to manually send their notes to the supervisory team for database entry. This application revolutionizes this process, significantly reducing manual workload and the potential for data entry errors.
+
+## Installation and Setup
 
 In the project directory, you can run:
 
